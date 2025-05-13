@@ -36,21 +36,21 @@ def grafico_y_filtrado(tiempo, datos_senal, etiqueta_eje_y, titulo_grafica):
     transformada_fft = np.abs(fft(datos_senal))[:cantidad_muestras//2]
 
     # Crear figura con 5 gráficas
-    fig, ejes = plt.subplots(5, 1, figsize=(12, 15))
-    fig.suptitle(f'{titulo_grafica}', fontsize=16)
+    fig, ejes = plt.subplots(5, 1, figsize=(12, 15)) # Crea una figura con 5 subgráficas verticales (5 filas, 1 columna) de tamaño 12x15 pulgadas
+    fig.suptitle(f'{titulo_grafica}', fontsize=16) # Establece el título general de la figura usando el parámetro recibido
 
-    ejes[0].plot(tiempo, datos_senal)
-    ejes[0].set_title('1. Señal Original')
+    ejes[0].plot(tiempo, datos_senal) # Grafica la señal original contra el tiempo en el primer eje
+    ejes[0].set_title('1. Señal Original') # Título del primer subgráfico
 
-    ejes[1].plot(tiempo, datos_senal, label='Original')
-    ejes[1].plot(tiempo, senal_promediada, label='Promediado Móvil', linestyle='--')
-    ejes[1].set_title('2. Promediado Móvil')
-    ejes[1].legend()
+    ejes[1].plot(tiempo, datos_senal, label='Original') # Grafica la señal original en el segundo eje
+    ejes[1].plot(tiempo, senal_promediada, label='Promediado Móvil', linestyle='--') # Superpone la señal con promedio móvil
+    ejes[1].set_title('2. Promediado Móvil') # Título del segundo subgráfico
+    ejes[1].legend() # Muestra la leyenda para identificar las curvas
 
-    ejes[2].plot(tiempo, datos_senal, label='Original')
-    ejes[2].plot(tiempo, senal_filtrada_pasabajas, label='Filtro Pasa Bajas', linestyle='--')
-    ejes[2].set_title('3. Filtro Pasa Bajas')
-    ejes[2].legend()
+    ejes[2].plot(tiempo, datos_senal, label='Original') # Grafica la señal original en el tercer eje
+    ejes[2].plot(tiempo, senal_filtrada_pasabajas, label='Filtro Pasa Bajas', linestyle='--') # Superpone la señal filtrada con filtro pasa bajas
+    ejes[2].set_title('3. Filtro Pasa Bajas') # Título del tercer subgráfico
+    ejes[2].legend() # Muestra la leyenda para identificar las curvas
 
     ejes[3].plot(tiempo, datos_senal, label='Original')
     ejes[3].plot(tiempo, senal_filtrada_pasabandas, label='Filtro Pasa Bandas', linestyle='--')
