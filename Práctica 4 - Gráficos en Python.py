@@ -17,9 +17,9 @@ frecuencia_corte = 0.1  #Frecuencia de corte para filtro pasa bajas
 banda_pasa_bandas = [0.02, 0.08]  #Frecuencia baja y alta para filtro pasa bandas
 
 #Función principal de filtración y graficación
-def grafico_y_filtrado(tiempo, datos_senal, etiqueta_eje_y, titulo_grafica):
-    cantidad_muestras = len(datos_senal)
-    frecuencias_fft = fftfreq(cantidad_muestras, d=intervalo_tiempo)[:cantidad_muestras // 2]
+def grafico_y_filtrado(tiempo, datos_senal, etiqueta_eje_y, titulo_grafica): #Graficar una señal en función del tiempo.
+    cantidad_muestras = len(datos_senal) #  cantidad_muestras = len(datos_senal)
+    frecuencias_fft = fftfreq(cantidad_muestras, d=intervalo_tiempo)[:cantidad_muestras // 2]#calcula el vector de frecuencias correspondiente a una transformada de Fourier
 
     #Promedio móvil
     senal_promediada = datos_senal.rolling(window=muestras_promedio, center=True).mean()
@@ -52,18 +52,18 @@ def grafico_y_filtrado(tiempo, datos_senal, etiqueta_eje_y, titulo_grafica):
     ejes[2].set_title('3. Filtro Pasa Bajas') # Título del tercer subgráfico
     ejes[2].legend() # Muestra la leyenda para identificar las curvas
 
-    ejes[3].plot(tiempo, datos_senal, label='Original')
-    ejes[3].plot(tiempo, senal_filtrada_pasabandas, label='Filtro Pasa Bandas', linestyle='--')
-    ejes[3].set_title('4. Filtro Pasa Bandas')
-    ejes[3].legend()
+    ejes[3].plot(tiempo, datos_senal, label='Original') # un conjunto de subgráficas (subplots), y específicamente dibuja una curva
+    ejes[3].plot(tiempo, senal_filtrada_pasabandas, label='Filtro Pasa Bandas', linestyle='--') #dibuja una segunda curva en el mismo gráfico del eje
+    ejes[3].set_title('4. Filtro Pasa Bandas')#sirve para colocar un título en la cuarta subgráfica
+    ejes[3].legend() #sirve para mostrar la leyenda en la subgráfica número 4
 
-    ejes[4].plot(frecuencias_fft, transformada_fft)
-    ejes[4].set_title('5. Transformada Rápida de Fourier (FFT)')
+    ejes[4].plot(frecuencias_fft, transformada_fft) #dibuja una gráfica de espectro de frecuencias en el quinto subplot
+    ejes[4].set_title('5. Transformada Rápida de Fourier (FFT)') #establece el título del quinto subplot (ejes[4]) en una figura de múltiples gráficas creada con matplotlib.
 
     for eje in ejes:
         eje.set_xlabel('Tiempo (s)' if 'FFT' not in eje.get_title() else 'Frecuencia (Hz)')
         eje.set_ylabel(etiqueta_eje_y)
-        eje.grid()
+        eje.grid() #activa la cuadrícula (grid) en el gráfico correspondiente a eje en una figura de matplotlib.
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
     plt.show()
