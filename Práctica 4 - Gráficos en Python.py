@@ -1,3 +1,9 @@
+# TEAM markoboquiñechainajesu
+
+# ESTE CÓDIGO REALIZA UNA FILTRACIÓN Y GRAFICACIÓN DE DATOS ORIGINARIOS DE ARCHIVOS CSV.
+
+# 12 / 05 / 2025 - V. 2. 0. 0 - GRÁFICOS EN PYTHON
+
 import pandas as pd 
 import numpy as np
 import matplotlib.pyplot as plt
