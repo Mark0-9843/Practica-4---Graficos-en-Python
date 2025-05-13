@@ -22,21 +22,21 @@ def grafico_y_filtrado(tiempo, datos_senal, etiqueta_eje_y, titulo_grafica): #Gr
     frecuencias_fft = fftfreq(cantidad_muestras, d=intervalo_tiempo)[:cantidad_muestras // 2] #se utiliza en el contexto del análisis de frecuencia con Transformada Rápida de Fourier (FFT)
 
     #Promedio móvil
-    senal_promediada = datos_senal.rolling(window=muestras_promedio, center=True).mean()
+    senal_promediada = datos_senal.rolling(window=muestras_promedio, center=True).mean() #Aplica promedio móvil centrado
 
     #Filtro pasa bajas
-    b_pasabajas, a_pasabajas = butter(N=4, Wn=frecuencia_corte, btype='low', analog=False)
-    senal_filtrada_pasabajas = filtfilt(b_pasabajas, a_pasabajas, datos_senal)
+    b_pasabajas, a_pasabajas = butter(N=4, Wn=frecuencia_corte, btype='low', analog=False) #Diseño del filtro pasa bajas de cuarto orden con frecuencia de corte definida
+    senal_filtrada_pasabajas = filtfilt(b_pasabajas, a_pasabajas, datos_senal) # Filtrado sin desfase
 
     #Filtro pasa bandas
-    b_pasabandas, a_pasabandas = butter(N=4, Wn=banda_pasa_bandas, btype='bandpass', analog=False)
-    senal_filtrada_pasabandas = filtfilt(b_pasabandas, a_pasabandas, datos_senal)
+    b_pasabandas, a_pasabandas = butter(N=4, Wn=banda_pasa_bandas, btype='bandpass', analog=False) #Diseño del filtro pasa bandas de cuarto orden con el rango de frecuencias definido
+    senal_filtrada_pasabandas = filtfilt(b_pasabandas, a_pasabandas, datos_senal) #Aplicación del filtro pasa bandas con filtfilt para mantener la fase
 
     #FFT
-    transformada_fft = np.abs(fft(datos_senal))[:cantidad_muestras//2]
+    transformada_fft = np.abs(fft(datos_senal))[:cantidad_muestras//2] #Magnitud de la FFT
 
     # Crear figura con 5 gráficas
-    fig, ejes = plt.subplots(5, 1, figsize=(12, 15)) # Crea una figura con 5 subgráficas verticales (5 filas, 1 columna) de tamaño 12x15 pulgadas
+    fig, ejes = plt.subplots(5, 1, figsize=(12, 15)) # Crea una figura con 5 subgráficas verticales (5 filas, 1 columna) de tamaño 12x15 pulgadas 
     fig.suptitle(f'{titulo_grafica}', fontsize=16) # Establece el título general de la figura usando el parámetro recibido
 
     ejes[0].plot(tiempo, datos_senal) # Grafica la señal original contra el tiempo en el primer eje
@@ -62,13 +62,13 @@ def grafico_y_filtrado(tiempo, datos_senal, etiqueta_eje_y, titulo_grafica): #Gr
     ejes[4].plot(frecuencias_fft, transformada_fft)#dibuja una gráfica de espectro de frecuencias en el quinto subplot (ejes[4]) de una figura creada con matplotlib.pyplot.subplots().
     ejes[4].set_title('5. Transformada Rápida de Fourier (FFT)') #Aestablece el título del quinto subplot (ejes[4]) en una figura de múltiples gráficas creada con matplotlib
 
-    for eje in ejes:
-        eje.set_xlabel('Tiempo (s)' if 'FFT' not in eje.get_title() else 'Frecuencia (Hz)')
-        eje.set_ylabel(etiqueta_eje_y)
+    for eje in ejes: #Recorre cada subgráfico (subplot) de la figura generada
+        eje.set_xlabel('Tiempo (s)' if 'FFT' not in eje.get_title() else 'Frecuencia (Hz)') #Etiqueta del eje X: 'Tiempo (s)' si no es FFT, o 'Frecuencia (Hz)' si es el gráfico de la FFT
+        eje.set_ylabel(etiqueta_eje_y) #Etiqueta del eje Y con el nombre de la magnitud (ej. Humedad, Temperatura, etc.)
         eje.grid()#activa la cuadrícula (grid) en el gráfico correspondiente a eje en una figura de matplotlib.
 
-    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    plt.show()
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95]) #Ajuste de espacio
+    plt.show() #Mostrar la figura
 
 #Cargar los datos desde los archivos CSV
 datos_humedad = pd.read_csv('humedad.csv')  # Carga los datos del archivo humedad.csv en un DataFrame llamado datos_humedad
@@ -76,9 +76,9 @@ datos_temperatura = pd.read_csv('temperatura.csv') # Carga los datos del archivo
 datos_viento = pd.read_csv('viento.csv') # Carga los datos del archivo viento.csv en un DataFrame llamado datos_viento
 
 #Ajustar tiempo (dato cada 5 segundos)
-tiempo_humedad = datos_humedad['Tiempo'] * 5
-tiempo_temperatura = datos_temperatura['Tiempo'] * 5
-tiempo_viento = datos_viento['Tiempo'] * 5
+tiempo_humedad = datos_humedad['Tiempo'] * 5 #Ajuste del tiempo: cada unidad representa 5 segundos
+tiempo_temperatura = datos_temperatura['Tiempo'] * 5 #Ajuste del tiempo: cada unidad representa 5 segundos
+tiempo_viento = datos_viento['Tiempo'] * 5 #Ajuste del tiempo: cada unidad representa 5 segundos
 
 #Aplicar análisis a cada señal
 grafico_y_filtrado(tiempo_humedad, datos_humedad['Humedad_Relativa_%'], 'Humedad (%)', 'Humedad')
