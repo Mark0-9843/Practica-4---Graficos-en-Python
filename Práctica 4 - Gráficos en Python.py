@@ -81,7 +81,7 @@ tiempo_temperatura = datos_temperatura['Tiempo'] * 5 #Ajuste del tiempo: cada un
 tiempo_viento = datos_viento['Tiempo'] * 5 #Ajuste del tiempo: cada unidad representa 5 segundos
 
 #Aplicar análisis a cada señal
-grafico_y_filtrado(tiempo_humedad, datos_humedad['Humedad_Relativa_%'], 'Humedad (%)', 'Humedad')
-grafico_y_filtrado(tiempo_temperatura, datos_temperatura['Temperatura_C'], 'Temperatura (°C)', 'Temperatura')
-grafico_y_filtrado(tiempo_viento, datos_viento['Velocidad_Viento_mps'], 'Velocidad (m/s)', 'Velocidad del Viento')
-grafico_y_filtrado(tiempo_viento, datos_viento['Direccion_Viento_deg'], 'Dirección (°)', 'Dirección del Viento')
+grafico_y_filtrado(tiempo_humedad, datos_humedad['Humedad_Relativa_%'], 'Humedad (%)', 'Humedad') #Genera un gráfico con esos datos.
+grafico_y_filtrado(tiempo_temperatura, datos_temperatura['Temperatura_C'], 'Temperatura (°C)', 'Temperatura') #grafica y filtra datos de temperatura al largo del tiempo  
+grafico_y_filtrado(tiempo_viento, datos_viento['Velocidad_Viento_mps'], 'Velocidad (m/s)', 'Velocidad del Viento') #  para visualizar y filtrar la velocidad del viento en función del tiempo
+grafico_y_filtrado(tiempo_viento, datos_viento['Direccion_Viento_deg'], 'Dirección (°)', 'Dirección del Viento') #grafica y filtra la dirección del viento con la misma función grafico_y_filtrado
