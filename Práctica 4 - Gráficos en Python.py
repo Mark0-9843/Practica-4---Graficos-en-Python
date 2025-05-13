@@ -4,11 +4,11 @@
 
 # 12 / 05 / 2025 - V. 2. 0. 1 - GRÁFICOS EN PYTHON
 
-import pandas as pd 
-import numpy as np
-import matplotlib.pyplot as plt
-from scipy.signal import butter, filtfilt
-from scipy.fft import fft, fftfreq
+import pandas as pd # Importa la biblioteca Pandas para manipulación de datos en forma de tablas (DataFrames)
+import numpy as np # Importa NumPy para operaciones matemáticas y manejo de arreglos numéricos
+import matplotlib.pyplot as plt # Importa matplotlib.pyplot para crear gráficos y visualizaciones
+from scipy.signal import butter, filtfilt # Importa funciones para diseñar y aplicar filtros digitales
+from scipy.fft import fft, fftfreq # Importa funciones para calcular la Transformada Rápida de Fourier y sus frecuencias asociadas
 
 frecuencia_muestreo = 0.2  #Frecuencia de muestreo (Hz)
 intervalo_tiempo = 1 / frecuencia_muestreo  #Tiempo entre muestras (5 segundos)
@@ -69,9 +69,9 @@ def grafico_y_filtrado(tiempo, datos_senal, etiqueta_eje_y, titulo_grafica):
     plt.show()
 
 #Cargar los datos desde los archivos CSV
-datos_humedad = pd.read_csv('humedad.csv')
-datos_temperatura = pd.read_csv('temperatura.csv')
-datos_viento = pd.read_csv('viento.csv')
+datos_humedad = pd.read_csv('humedad.csv')  # Carga los datos del archivo humedad.csv en un DataFrame llamado datos_humedad
+datos_temperatura = pd.read_csv('temperatura.csv') # Carga los datos del archivo temperatura.csv en un DataFrame llamado datos_temperatura
+datos_viento = pd.read_csv('viento.csv') # Carga los datos del archivo viento.csv en un DataFrame llamado datos_viento
 
 #Ajustar tiempo (dato cada 5 segundos)
 tiempo_humedad = datos_humedad['Tiempo'] * 5
